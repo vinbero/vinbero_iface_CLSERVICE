@@ -1,0 +1,31 @@
+#ifndef _VINBERO_IFACE_CLSERVICE_H
+#define _VINBERO_IFACE_CLSERVICE_H
+
+#include <vinbero_com/vinbero_com_ClModule.h>
+#include <vinbero_com/vinbero_com_Status.h>
+
+#define VINBERO_IFACE_CLSERVICE_FUNCS \
+int vinbero_iface_CLSERVICE_call(struct vinbero_com_ClModule* clModule)
+
+#define VINBERO_IFACE_CLSERVICE_FUNC_POINTERS \
+int (*vinbero_iface_CLSERVICE_call)(struct vinbero_com_ClModule*)
+
+struct vinbero_iface_CLSERVICE {
+    VINBERO_IFACE_CLSERVICE_FUNC_POINTERS;
+};
+
+#define VINBERO_IFACE_CLSERVICE_DLSYM(iface, dlHandle, ret) \
+do { \
+    VINBERO_COM_MODULE_DLSYM(iface, dlHandle, vinbero_iface_CLSERVICE_call, ret); \
+    if(*ret < VINBERO_COM_STATUS_SUCCESS) break; \
+} while(0);
+
+#define VINBERO_IFACE_CLSERVICE_VERSION "@version@"
+#define VINBERO_IFACE_CLSERVICE_VERSION_MAJOR @version_major@
+#define VINBERO_IFACE_CLSERVICE_VERSION_MINOR @version_minor@
+#define VINBERO_IFACE_CLSERVICE_VERSION_PATCH @version_patch@
+#define VINBERO_IFACE_CLSERVICE_SOVERSION "@soversion@"
+#define VINBERO_IFACE_CLSERVICE_NAME "@PROJECT_NAME@"
+#define VINBERO_IFACE_CLSERVICE_FULL_NAME "@PROJECT_NAME@(@soversion@)"
+
+#endif
